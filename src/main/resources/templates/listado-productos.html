@@ -1,48 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Listado de Productos</title>
+<meta charset="UTF-8">
+<title>Listado de Productos</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 
 <div class="container mt-5">
 
-    <h2 class="mb-4">Listado de Productos</h2>
+<h2>Listado de Productos</h2>
 
-    <a href="/productos/nuevo" class="btn btn-success mb-3">
-        Nuevo Producto
-    </a>
+<div class="alert alert-success"
+    th:if="${mensaje}"
+    th:text="${mensaje}">
+</div>
 
-    <a href="/" class="btn btn-secondary mb-3">
-        Inicio
-    </a>
+<a href="/productos/nuevo"
+class="btn btn-success mb-3">
+Nuevo Producto
+</a>
 
-    <table class="table table-bordered">
+<a href="/"
+class="btn btn-secondary mb-3">
+Inicio
+</a>
 
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-            </tr>
-        </thead>
+<table class="table table-bordered table-striped">
 
-        <tbody>
+<thead class="table-dark">
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Categoría</th>
+<th>Precio</th>
+<th>Acciones</th>
+</tr>
+</thead>
 
-            <tr th:each="producto : ${productos}">
-                <td th:text="${producto.id}"></td>
-                <td th:text="${producto.nombre}"></td>
-                <td th:text="${producto.categoria}"></td>
-                <td th:text="${producto.precio}"></td>
-            </tr>
+<tbody>
 
-        </tbody>
+<tr th:each="producto : ${productos}">
 
-    </table>
+<td th:text="${producto.id}"></td>
+<td th:text="${producto.nombre}"></td>
+<td th:text="${producto.categoria}"></td>
+<td th:text="${producto.precio}"></td>
+
+<td>
+
+<a th:href="@{/productos/editar/{id}(id=${producto.id})}"
+class="btn btn-warning btn-sm">
+Editar
+</a>
+
+<a th:href="@{/productos/eliminar/{id}(id=${producto.id})}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('¿Desea eliminar este producto?')">
+Eliminar
+</a>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
 
 </div>
 
